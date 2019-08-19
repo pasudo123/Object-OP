@@ -8,8 +8,21 @@ import edu.pasudo123.oop.elevator.IElevatorButton;
  * Email: oraedoa@gmail.com
  **/
 public class ElevatorButton implements IElevatorButton {
-    @Override
-    public void pushed() {
 
+    private boolean isPush = false;
+
+    public ElevatorButton() {
+        this.isPush = false;
     }
+
+    @Override
+    public void push() {
+        this.isPush = !this.isPush;
+    }
+
+    @Override
+    public boolean isPush() {
+        return this.isPush;
+    }
+
 }

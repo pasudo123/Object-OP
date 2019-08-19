@@ -1,5 +1,6 @@
 package edu.pasudo123.oop.elevator.impl;
 
+import edu.pasudo123.oop.elevator.IElevatorAlarm;
 import edu.pasudo123.oop.elevator.IElevatorSensor;
 
 /**
@@ -29,6 +30,16 @@ public class ElevatorSensor implements IElevatorSensor {
     @Override
     public boolean sensing() {
         return limitWeight <= weight;
+    }
+
+    @Override
+    public void onBeforeAlarm() {
+        System.out.println(":: 정원이 가득 찼습니다. ::");
+    }
+
+    @Override
+    public void onAfterAlarm() {
+        System.out.println(":: 정원이 가득 찼습니다. ::");
     }
 
     @Override

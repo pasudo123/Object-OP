@@ -7,17 +7,7 @@ import edu.pasudo123.oop.elevator.IElevatorAlarm;
  * Blog: https://pasudo123.tistory.com/
  * Email: oraedoa@gmail.com
  **/
-public class ElevatorAlarm implements IElevatorAlarm, Runnable {
-
-    @Override
-    public void onceAlarm() {
-        System.out.println(":: 정원이 초과되었습니다.");
-    }
-
-    @Override
-    public void continuousAlarm() {
-        System.out.println(":: 정원이 초과되었습니다.");
-    }
+public class ElevatorAlarm implements IElevatorAlarm {
 
     @Override
     public void onAlarm() {
@@ -26,11 +16,6 @@ public class ElevatorAlarm implements IElevatorAlarm, Runnable {
 
     @Override
     public void offAlarm() {
-
-    }
-
-    @Override
-    public void run() {
 
     }
 }

@@ -8,6 +8,8 @@ package edu.pasudo123.oop.elevator;
 public interface IElevatorButton {
 
     // 버튼이 눌려졌다.
-    void pushed();
+    void push();
+
+    boolean isPush();
 
 }

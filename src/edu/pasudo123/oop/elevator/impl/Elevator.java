@@ -1,7 +1,6 @@
 package edu.pasudo123.oop.elevator.impl;
 
 import edu.pasudo123.oop.elevator.IElevator;
-import edu.pasudo123.oop.elevator.IElevatorAlarm;
 import edu.pasudo123.oop.elevator.IElevatorButton;
 import edu.pasudo123.oop.elevator.IElevatorSensor;
 
@@ -15,58 +14,46 @@ import java.util.List;
  **/
 public class Elevator implements IElevator {
 
+    private final int ALL_FLOOR = 10;
+
     private ElevatorType type;
-    private IElevatorAlarm alarm;
-    private IElevatorButton button;
+    private IElevatorButton button[];
     private IElevatorSensor sensor;
     private List<Person> personList;
+    private int thisFloor;
 
-    public Elevator(ElevatorType type){
+    public Elevator(ElevatorType type) {
         this.type = type;
-        this.alarm = new ElevatorAlarm();
-        this.button = new ElevatorButton();
         this.sensor = new ElevatorSensor(type.getMaxWeight());
         this.personList = new ArrayList<>();
+        this.thisFloor = 0;
+
+        this.button = new IElevatorButton[ALL_FLOOR + 1];
+        for (int i = 0; i < button.length; i++) {
+            this.button[i] = new ElevatorButton();
+        }
     }
 
     @Override
     public void takeOnPerson(Person person) {
-        if(sensor.beforeSensing()){
-            /** 정원이 초과되었음에도 불구하고 또 탑승 **/
-
-            alarm.onAlarm();
+        if (sensor.sensing()) {
+            sensor.onBeforeAlarm();
             return;
         }
 
         this.personList.add(person);
         sensor.addNewWeight(person.getWeight());
 
-        if(sensor.afterSensing()){
-            /** 탑승하고나서 정원이 초과되었음 :: Thread 로 3초 돌린다. 이후에 랜덤하게 한 명만 제외시킨다. **/
-            alarm.onAlarm();
-            System.out.println("정원이 초과되었습니다.");
-
-            int localTime = 3000;
-
-            while(true){
-                try {
-
-                    if(localTime == 0) { break; }
-
-                    localTime -= 1000;
-                    Thread.sleep(1000);
-
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            }
+        if (sensor.sensing()) {
+            sensor.onAfterAlarm();
+            /** while 문을 계속 돈다. **/
         }
     }
 
     @Override
     public void getOffPerson(Person person) {
 
-        if(isEmpty()){
+        if (isEmpty()) {
             return;
         }
 
@@ -74,13 +61,31 @@ public class Elevator implements IElevator {
         sensor.minWeight(person.getWeight());
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return (this.personList.size() == 0);
     }
 
     @Override
     public void moveUp() {
+        /** this.floor 보다 큰 층 수에 값이 true **/
 
+        int goToFloor = 0;
+        boolean isExist = false;
+
+        for (int floor = this.thisFloor; floor <= ALL_FLOOR; floor++) {
+
+            if (!button[floor].isPush()) {
+                continue;
+            }
+
+            goToFloor = floor;
+            isExist = true;
+            break;
+        }
+
+        if (isExist) {
+            thisFloor = goToFloor;
+        }
     }
 
     @Override
@@ -104,7 +109,7 @@ public class Elevator implements IElevator {
     }
 
     @Override
-    public void pressedTheButton() {
-
+    public void pressedTheButton(final int floor) {
+        this.button[floor].push();
     }
 }

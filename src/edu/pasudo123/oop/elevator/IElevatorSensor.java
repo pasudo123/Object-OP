@@ -16,6 +16,10 @@ public interface IElevatorSensor {
 
     void addNewWeight(int personWeight);
 
+    void onBeforeAlarm();
+
+    void onAfterAlarm();
+
     void minWeight(int personWeight);
 
 }

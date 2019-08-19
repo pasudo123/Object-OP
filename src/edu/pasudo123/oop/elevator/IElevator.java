@@ -35,7 +35,7 @@ public interface IElevator {
     // 건물의 전체 층 수를 유지한다.
 
     // 버튼이 눌려졌다.
-    void pressedTheButton();
+    void pressedTheButton(int floor);
 
 
 }
