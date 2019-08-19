@@ -1,6 +1,5 @@
 package edu.pasudo123.oop.elevator.impl;
 
-import edu.pasudo123.oop.elevator.IElevatorAlarm;
 import edu.pasudo123.oop.elevator.IElevatorSensor;
 
 /**

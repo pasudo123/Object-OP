@@ -14,22 +14,16 @@ import java.util.List;
 public class Building {
 
     private String buildingName;
-    private IFloor[] floors;
+    private Floor[] floors;
     private List<Person> personList;
     private IElevator elevator;
 
-    /**
-     * 빌딩 이름 설정
-     * @param buildingName
-     */
+    /** 빌딩 이름 설정 **/
     public void setBuildingName(final String buildingName){
         this.buildingName = buildingName;
     }
 
-    /**
-     * 현재 빌딩의 전체 층 수 설정
-     * @param floorSize
-     */
+    /** 현재 빌딩의 전체 층 수 설정 **/
     public void setFloorSize(final int floorSize) {
         this.floors = new Floor[floorSize + 1];
         for (int i = 0; i < floors.length; i++) {
@@ -37,15 +31,15 @@ public class Building {
         }
     }
 
-    /**
-     * 현재 빌딩의 전체 층 수
-     * @return
-     */
+    public String getBuildingName() {
+        return buildingName;
+    }
+
     public int getAllFloor(){
         return this.floors.length;
     }
 
-    private void personIntoBuilding(ArrayList<Person> personList) {
-        this.personList = personList;
+    public void setPersonCountOnFloor(final int floor, int count){
+        this.floors[floor].setPerson(count);
     }
 }

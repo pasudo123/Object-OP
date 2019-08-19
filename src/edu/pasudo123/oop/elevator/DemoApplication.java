@@ -1,8 +1,6 @@
 package edu.pasudo123.oop.elevator;
 
 import edu.pasudo123.oop.elevator.impl.Building;
-import edu.pasudo123.oop.elevator.impl.Elevator;
-import edu.pasudo123.oop.elevator.impl.ElevatorType;
 import edu.pasudo123.oop.elevator.impl.Person;
 
 import java.util.ArrayList;
@@ -21,25 +19,24 @@ public class DemoApplication {
 
     public static void main(String[] args) {
 
-        List<Person> personList = null;
+        List<Person> personList = new ArrayList<>();;
         boolean isContinue = true;
 
         while (isContinue) {
 
+            Building building = new Building();
+
             /** # 1.0 **/
+            builder.append("#################################################################\n");
             builder.append("\n:: 엘리베이터 시스템에 오신걸 환영합니다. ::\n");
             builder.append("-- 빌딩 이름과 빌딩 층수를 입력해주세요. --");
             printingAndcleanUpBuilder();
 
             System.out.print("빌딩의 이름 :: ");
-            String buildingName = scanner.next();
+            building.setBuildingName(scanner.next());
 
             System.out.print("빌딩의 층수 :: ");
-            int buildingFloor = scanner.nextInt();
-
-            Building building = new Building();
-            building.setBuildingName(buildingName);
-            building.setFloorSize(buildingFloor);
+            building.setFloorSize(scanner.nextInt());
 
             /** # 2.0 **/
             builder.append("-- 빌딩에 들어오는 인원의 수를 입력해주세요. --");
@@ -47,7 +44,6 @@ public class DemoApplication {
 
             System.out.print("-- 인원의 수 :: ");
             int personCount = scanner.nextInt();
-            personList = new ArrayList<>();
             for(int i = 0; i < personCount; i++){
                 personList.add(new Person((i+1)));
             }
@@ -74,11 +70,14 @@ public class DemoApplication {
                 }// while(true)
             }// for
             System.out.print("===============================================================\n");
-            System.out.print(":: 빌딩에 들어옹는 인원의 몸무게 및 층수를 모두 입력하셨습니다!! ::\n");
+            System.out.print(":: 빌딩에 들어오는 인원의 몸무게 및 층수를 모두 입력하셨습니다!! ::\n");
             System.out.print("===============================================================\n");
 
             /** # 3.0 :: 각 층에 존재하는 인원의 수 및 해당 인원이 가려고 하는 층 수 **/
-
+            for(int i = 1; i <= building.getAllFloor(); i++){
+                System.out.println(i + "층에 존재하는 인원의 수 :: ");
+                // # 2.0 내용이 반복된다.
+            }
         }
     }
 
