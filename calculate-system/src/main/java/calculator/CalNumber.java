@@ -8,11 +8,11 @@ public class CalNumber {
         this.number = number;
     }
 
-    public static CalNumber of(int number){
-        return new CalNumber(number);
+    public static CalNumber of(String number){
+        return new CalNumber(Integer.parseInt(number));
     }
 
-    public int get(){
+    public double get(){
         return number;
     }
 }
