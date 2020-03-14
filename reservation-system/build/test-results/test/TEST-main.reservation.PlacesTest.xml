@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="main.reservation.PlacesTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-14T03:31:24" hostname="DESKTOP-PARK" time="0.098">
+  <properties/>
+  <testcase name="createTest()" classname="main.reservation.PlacesTest" time="0.098"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
