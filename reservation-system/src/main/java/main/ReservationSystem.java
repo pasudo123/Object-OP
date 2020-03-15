@@ -2,7 +2,9 @@ package main;
 
 import main.printer.MenuInputView;
 import main.printer.MenuResultView;
+import main.reservation.ReservationInfo;
 import main.reservation.ReservationStatus;
+import main.reservation.SeatType;
 
 public class ReservationSystem {
 
@@ -17,6 +19,8 @@ public class ReservationSystem {
         System.out.println("=======  공연 예약 시스템  =======");
         System.out.println("=================================");
 
+        ReservationStatus reservationStatus = new ReservationStatus();
+
         while(true){
             final int myAnswer = MenuInputView.askConcertMenu();
 
@@ -26,11 +30,17 @@ public class ReservationSystem {
 
             switch(myAnswer){
                 case RESERVE :
+                    final SeatType seatType = MenuInputView.askSeatType();
+                    final String name = MenuInputView.askPersonName();
+                    final int seatNumber = MenuInputView.askSeatPlace();
+                    reservationStatus.reserve(ReservationInfo.create(seatType, name, seatNumber));
                     break;
                 case SELECT :
-                    MenuResultView.showReservationStatus(ReservationStatus.getSeats());
+                    MenuResultView.showReservationStatus(reservationStatus.getSeats());
                     break;
                 case CANCEL :
+                    final String cancelName = MenuInputView.askCancelPersonName();
+                    reservationStatus.cancel(cancelName);
                     break;
                 default:
                     break;

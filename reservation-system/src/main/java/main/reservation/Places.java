@@ -26,4 +26,30 @@ public class Places {
                 .map(Place::get)
                 .collect(Collectors.toList()));
     }
+
+    public String updatePlace(String name, int seatNumber){
+        validate(name, seatNumber);
+        return places.get(getSeatNumber(seatNumber)).update(name);
+    }
+
+    public void removePlace(String name){
+        places.stream()
+                .filter(place -> place.isExist(name))
+                .findAny()
+                .ifPresent(Place::init);
+    }
+
+    private void validate(String name, int seatNumber){
+        if(name == null || name.equals("")){
+            throw new IllegalArgumentException("예약자의 이름이 공백 또는 널입니다.");
+        }
+
+        if(seatNumber > places.size()){
+            throw new IllegalArgumentException("예약 좌석의 번호가 존재하지 않습니다.");
+        }
+    }
+
+    private int getSeatNumber(int seatNumber){
+        return (seatNumber - 1);
+    }
 }
